@@ -13,7 +13,7 @@
 
 	onMount(async () => {
 		try {
-			const res = await fetch('/api/user/progress');
+			const res = await fetch('/api/user/progress', { credentials: 'include' });
 			if (!res.ok) {
 				if (res.status === 401) {
 					error = 'Log in to see your progress.';
@@ -22,6 +22,7 @@
 				throw new Error(res.statusText);
 			}
 			progress = await res.json();
+			error = '';
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Failed to load progress';
 		} finally {
