@@ -1,4 +1,4 @@
-import { pgTable, text, boolean, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, boolean, timestamp, integer, jsonb } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -7,7 +7,13 @@ export const user = pgTable('user', {
 	emailVerified: boolean('emailVerified').notNull().default(false),
 	image: text('image'),
 	createdAt: timestamp('createdAt').notNull().defaultNow(),
-	updatedAt: timestamp('updatedAt').notNull().defaultNow()
+	updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+	// BECOM app fields
+	currentLevel: integer('currentLevel').default(1),
+	startingLevel: integer('startingLevel').default(1),
+	onboardingAnswers: jsonb('onboardingAnswers'),
+	paceProfile: text('paceProfile').default('steady'),
+	preferredDepth: text('preferredDepth').default('light')
 });
 
 export const session = pgTable('session', {
